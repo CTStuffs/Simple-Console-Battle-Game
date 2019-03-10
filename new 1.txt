@@ -1,0 +1,58 @@
+
+public GetAddressForm(): AddressForm {
+	return this.addressForm;
+}
+
+public GetSWARelationships(): GetSWARelationships {
+	return this.swaRelationships;
+}
+
+public GetContactDetails(): ContactDetails {
+	return this.ContactDetails;
+}
+
+public GetKeyDates(): KeyDates{
+	return this.keyDates;
+}
+
+public GetClientForm(): ClientForm{
+	return this.clientForm;
+}
+
+public GetInteractionsForm(): InteractionsForm{
+	return this.interactionsForm;
+}
+
+mystring = myString.replace(/\D/g,''); // removes all non-numeric characters from string
+var fr = FileReader();
+
+var fs = require("fs");
+var fileContent = +mystring; // unary operator, converst to integer
+
+// write to file
+fs.writeFile("./test_ids.txt", fileContent, (err) => {
+    if (err) {
+        console.error(err);
+        return;
+    };
+    console.log("wrote id to file");
+});
+
+var id_raw = fs.readFileSync("./test_ids.txt");
+var id_arrays = text.split("\n")
+
+if (!id_arrays.contains(id){
+	fs.writeFile("./test_ids.txt", id, (err) => {
+		if (err) {
+			console.error(err);
+			return;
+		};
+		console.log("wrote id to file");
+	});
+
+}
+
+Math.random * (id_arrays.length - 1-0) + 0 ;
+
+GetBaseUrl() + "/people/" + id
+GetBaseUrl() + "/orgs/" + id

@@ -18,10 +18,10 @@ namespace SimpleConsoleBattleGame.models
 
         public override void Display()
         {
-            Console.WriteLine("[HERO: " + Name + "]");
-            Console.WriteLine("\tHP: " + HitPoints);
-            Console.WriteLine("\tMP: " + ManaPoints);
-            Console.WriteLine("\tStatus: " + Status.ToString());
+            Console.WriteLine("\n[HERO: " + Name + "]");
+            Console.WriteLine("HP: " + HitPoints);
+            Console.WriteLine("MP: " + ManaPoints);
+            Console.WriteLine("Status: " + Status.ToString());
         }
 
 

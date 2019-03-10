@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SimpleConsoleBattleGame.models;
 
 namespace SimpleConsoleBattleGame
 {
-    // this class receives an action for 
-    public class Middleman
+    public class AgentController
     {
-        
+        public void ProcessMove(Move move, Agent initiator, Agent target)
+        {
+
+        }
 
 
     }
