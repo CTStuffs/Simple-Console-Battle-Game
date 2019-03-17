@@ -10,8 +10,8 @@ namespace SimpleConsoleBattleGame.models
 
     public class Agent
     {
-        public int HitPoints {get; set; } = 100;
-        public int ManaPoints { get; set; } = 50;
+        public int HP {get; set; } = 100;
+        public int MP { get; set; } = 50;
         public AGENT_STATUS Status { get; set; } = AGENT_STATUS.NORMAL;
         public string Name {  get; set; } = "AGENT";
         public string Description { get; set; } = "AGENT DESCRIPTION";
@@ -59,18 +59,18 @@ namespace SimpleConsoleBattleGame.models
 
         public void ModHP(int mod)
         {
-            this.HitPoints += mod;
+            this.HP += mod;
         }
 
         public bool IsAlive()
         {
-            return HitPoints > 0;
+            return HP > 0;
         }
 
-        public virtual void Display()
+        public virtual string Display()
         {
-            Console.WriteLine("Name: " + Name + "\nDescription: " + Description + "\nStatus: " + Status.ToString()
-                + "\nHP: " + HitPoints + "\nMP: " + ManaPoints);
+            return ("Name: " + Name + "\nDescription: " + Description + "\nStatus: " + Status.ToString()
+                + "\nHP: " + HP + "\nMP: " + MP);
         }
 
         public virtual void Display(string text)

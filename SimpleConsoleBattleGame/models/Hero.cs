@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SimpleConsoleBattleGame.models
 {
-    class Hero: Agent
+    public class Hero: Agent
     {
         public Hero()
         {
@@ -16,12 +16,15 @@ namespace SimpleConsoleBattleGame.models
             
         }
 
-        public override void Display()
+        public override string Display()
         {
-            Console.WriteLine("\n[HERO: " + Name + "]");
-            Console.WriteLine("HP: " + HitPoints);
-            Console.WriteLine("MP: " + ManaPoints);
-            Console.WriteLine("Status: " + Status.ToString());
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("\n[HERO: " + Name + "]");
+            sb.AppendLine("HP: " + HP);
+            sb.AppendLine("MP: " + MP);
+            sb.AppendLine("Status: " + Status.ToString());
+
+            return sb.ToString();
         }
 
 

@@ -4,9 +4,9 @@ using System.Text;
 using SimpleConsoleBattleGame.models;
 namespace SimpleConsoleBattleGame
 {
-    static class UI
+    static class GameView
     {
-        static UI()
+        static GameView()
         {
 
         }

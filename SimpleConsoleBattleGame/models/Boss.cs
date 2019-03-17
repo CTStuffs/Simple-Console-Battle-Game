@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SimpleConsoleBattleGame.models
 {
-    class Boss: Agent
+    public class Boss: Agent
     {
         public Boss()
         {

@@ -10,62 +10,98 @@ namespace SimpleConsoleBattleGame
     {
         Hero Hero;
         Boss Boss;
+        GameController gControl;
+        TextCollection texts;
+        bool debugMode = false;
 
         public Game()
         {
-         
+            Load();
+            
+            
         }
-        
+
+        public Game(bool debug)
+        {
+            this.debugMode = debug;
+        }
+
+        public void Load()
+        {
+         
+            Hero = new Hero("Hero", "A hero from a far away land", null);
+            Boss = new Boss("Boss", "A boss from the realms of demons", null);
+
+            // replace this with a JSON loading function
+            Hero.AddMove(new Move(1,"Attack", 25, 0, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "attacks"));
+            Hero.AddMove(new Move(2, "Magic Attack", 50, 50, enums.AGENT_STATUS.NORMAL, 100, "Magic attack", "performs a magic attack!"));
+            Hero.AddMove(new Move(3, "Defend", 10, 0, enums.AGENT_STATUS.NORMAL, 100, "Defending attack", "defends and restores health!"));
+            Hero.AddMove(new Move(4, "Escape", 10, 0, enums.AGENT_STATUS.NORMAL, 60, "Escape move", "tried to escape!"));
+
+            Hero.Moves[3].Lethal = false;
+
+            Boss.AddMove(new Move(1, "Strike", 15, 0, enums.AGENT_STATUS.POISON, 100, "Poison Attack", "fired poison from the mouth"));
+            Boss.AddMove(new Move(2, "Attack", 25, 0, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "attacks"));
+
+            texts = new TextCollection();
+            gControl  = new GameController(texts, Hero, Boss);
+        }
+
+
 
         public void Run()
         {
             // load all things needed for the game (agent stats, endings achieved etc.)
             Load();
 
-            Console.WriteLine("Welcome to the Game!");
-            Console.WriteLine("Oh no, the BOSS is attacking! HERO, stop him!");
+
             // show game UI
 
-           
+            Console.WriteLine(texts.Find("intro_text"));
             while (true)
             {
                 // print HERO UI.
                 // ask for input
 
-                Hero.Display();
-                Boss.Display("The Boss is standing there...menancingly...");
+                Console.WriteLine(texts.Find("idle_hero_text"));
+                Console.WriteLine(gControl.GetHeroDisplay());
+
+
+                if (debugMode) { Console.WriteLine(gControl.GetBossDisplay()); }
+                //Hero.Display();
+                //Boss.Display("The Boss is standing there...menancingly...");
                 //Console.WriteLine();
 
-                Console.WriteLine("Input your command: ");
+                
+                Console.WriteLine(gControl.ShowAvailableMoves());
+
+                Console.WriteLine(texts.Find("input_prompt"));
+
                 string input;
                 while (true)
                 {
                     input = InputValidator.ReceiveText();
-                    if(ProcessPlayer(input, Hero, Boss))
+                    if(gControl.ProcessInput(input))
                     {
                         break;
                     }
                     else
                     {
-                        Console.WriteLine(input + "is not a valid input! Please try again!");
+                        Console.WriteLine(texts.Find("bad_input_error"));
                     }
 
                 }
-
-                Console.WriteLine("The hero finished his attack. The boss steps up to counter!");
-                ProcessAI(Boss, Hero);
-
-              
-
-                
-                if (!CheckState())
+                Console.WriteLine(gControl.GetGameResponse());
+   
+                if (!gControl.CheckGameState())
                 {
-                    ProcessEnd();
+                    gControl.ProcessEnd();
+                    Console.WriteLine(gControl.GetGameResponse());
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("What will you do?");
+                    Console.WriteLine(texts.Find("input_waiting"));
                 }
                 //Act(input, Hero);
 
@@ -76,121 +112,17 @@ namespace SimpleConsoleBattleGame
                 // check gamestate
             }
 
-            Console.WriteLine("End of game.");
+            Console.WriteLine(texts.Find("game_ended"));
             // await user input for hero
         }
 
-        public void Load()
-        {
-            Hero = new Hero("Hero", "A hero from a far away land", null);
-            Boss = new Boss("Boss", "A boss from the realms of demons", null);
+        
+       
 
-            // replace this with 
-            Hero.AddMove(new Move("Attack", 25, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "attacks"));
-            Hero.AddMove(new Move("Defend", 10, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "defends and restores health!"));
-            Boss.AddMove(new Move("Strike", 15, enums.AGENT_STATUS.POISON, 100, "Poison Attack", "fired poison from the mouth"));
-            Boss.AddMove(new Move("Attack", 25, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "attacks"));
-        }
-
-        public void ProcessEnd()
-        {
-            if (Hero.HitPoints > Boss.HitPoints) { 
-            
-                Console.WriteLine("The HERO has become victorious over the BOSS! Congratulations!");
-                return;
-            }
-            else if (Hero.HitPoints < Boss.HitPoints)
-            {
-                Console.WriteLine("The BOSS has become victorious over the HERO! This is terrible!");
-                return;
-            }
-            else
-            {
-                Console.WriteLine("The HERO and BOSS killed each other at the same time! How did this happen?");
-                return;
-            }
-        }
-
-        // this may need an additional class
-        public bool ProcessPlayer(string moveName, Agent initiator, Agent target)
-        {
-            Move move = initiator.FindMove(moveName);
-            if (move != null)
-            {
-
-               ProcessMove(move, initiator, target); // process the move on the
-            }
-            else
-            {
-                return false;
-            }
-
-            // send string to middleman, middleman deciphers it as a move, middleman processes it onto boss
-
-            // update both here if necessary
-            return true;
-        }
-
-        public bool CheckState()
-        {
-            if (!Boss.IsAlive() || !Hero.IsAlive())
-            {
-                return false;
-            }
-
-            return true;
-        }
+       
 
 
-
-        public void ProcessMove(Move move, Agent initiator, Agent target)
-        {
-            if (move.Name.ToUpper().Contains("ATTACK"))
-            {
-                ProcessDamage(move, initiator, target);
-            }
-            else if (move.Name.ToUpper().Contains("DEFEND"))
-            {
-                initiator.HitPoints += move.Power;
-                Console.Write("The " + initiator.Name + " " + move.Description + "!");
-            }
-            else
-            {
-                ProcessDamage(move, initiator, target);
-            }
-          
-        }
-
-        public void ProcessDamage(Move move, Agent initiator, Agent target)
-        {
-            Console.Write("The " + initiator.Name + " " + move.Description + "!");
-            Random rand = new Random();
-            int maxAccuracy = 100;
-            int damageMod = rand.Next(5, 15);
-            int damage = move.Power + damageMod;
-            if (move.Accuracy < maxAccuracy)
-            {
-
-                if (rand.Next(move.Accuracy, maxAccuracy) + 1 < move.Accuracy)
-                {
-                    damage = 0;
-                }
-            }
-            else
-            {
-                Console.WriteLine(" " + damage + " damage to the " + target.Name + "!");
-                target.ModHP(-damage);
-            }
-        }
-
-
-        public void ProcessAI(Agent initiator, Agent target)
-        {
-            List<Move> initiatorMoves = initiator.GetMoves();
-            Move strongestMove = initiatorMoves.OrderByDescending(x => x.Power).First();
-            ProcessMove(strongestMove, initiator, target);
-
-        }
+       
 
       
     }

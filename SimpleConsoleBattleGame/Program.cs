@@ -32,7 +32,8 @@ namespace SimpleConsoleBattleGame
                         Console.WriteLine("This feature has not yet been implemented.");
                         break;
                     case 4:
-                        Console.WriteLine("Thank you for playing!");
+                        Game debugGame = new Game(true);
+                        debugGame.Run();
                         return;
                     default:
                         Console.WriteLine("Thank you for playing!");
@@ -48,7 +49,8 @@ namespace SimpleConsoleBattleGame
             Console.WriteLine("1. Start Game");
             Console.WriteLine("2. Stats");
             Console.WriteLine("3. Options");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Debug Mode");
+            Console.WriteLine("5. Exit");
         }
 
     }
