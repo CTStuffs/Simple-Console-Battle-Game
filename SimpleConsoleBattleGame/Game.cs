@@ -1,6 +1,10 @@
-﻿using SimpleConsoleBattleGame.models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using SimpleConsoleBattleGame.models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -13,6 +17,7 @@ namespace SimpleConsoleBattleGame
         GameController gControl;
         TextCollection texts;
         bool debugMode = false;
+        Utility util = new Utility();
 
         public Game()
         {
@@ -28,12 +33,31 @@ namespace SimpleConsoleBattleGame
 
         public void Load()
         {
-         
+
             Hero = new Hero("Hero", "A hero from a far away land", null);
             Boss = new Boss("Boss", "A boss from the realms of demons", null);
+            try
+            {
+                //JArray heroMovesJson = JArray.Parse(File.ReadAllText("files/hero_moves.json"));
+                //JArray bossMovesJson = JArray.Parse(File.ReadAllText("files/boss_moves.json"));
+                List<Move> heroMoves = util.ReadListFromJson<Move>("files/hero_moves.json");
+                    //JsonConvert.DeserializeObject<List<Move>>(heroMovesJson.ToString());
+                List<Move> bossMoves = util.ReadListFromJson<Move>("files/boss_moves.json");
 
+                Hero.Moves = heroMoves;
+                Boss.Moves = bossMoves;
+                   // string json = r.ReadToEnd();
+                    //List<Move> moves = JsonConvert.DeserializeObject<List<Move>>(json);
+                   // Hero.Moves = moves;
+            }
+            catch (Exception e)
+            {
+
+            }
             // replace this with a JSON loading function
-            Hero.AddMove(new Move(1,"Attack", 25, 0, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "attacks"));
+
+            /*
+            Hero.AddMove(new Move(1, "Attack", 25, 0, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "attacks"));
             Hero.AddMove(new Move(2, "Magic Attack", 50, 50, enums.AGENT_STATUS.NORMAL, 100, "Magic attack", "performs a magic attack!"));
             Hero.AddMove(new Move(3, "Defend", 10, 0, enums.AGENT_STATUS.NORMAL, 100, "Defending attack", "defends and restores health!"));
             Hero.AddMove(new Move(4, "Escape", 10, 0, enums.AGENT_STATUS.NORMAL, 60, "Escape move", "tried to escape!"));
@@ -42,7 +66,35 @@ namespace SimpleConsoleBattleGame
 
             Boss.AddMove(new Move(1, "Strike", 15, 0, enums.AGENT_STATUS.POISON, 100, "Poison Attack", "fired poison from the mouth"));
             Boss.AddMove(new Move(2, "Attack", 25, 0, enums.AGENT_STATUS.NORMAL, 100, "Normal attack", "attacks"));
+            */
+            /*
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
 
+
+            using (StreamWriter sw = new StreamWriter("files/boss_moves.json"))
+            {
+                string bossMoves = JsonConvert.SerializeObject(Boss.Moves,
+                    new JsonSerializerSettings
+                    {
+                        ContractResolver = contractResolver,
+                        Formatting = Formatting.Indented
+                    });
+                sw.Write(bossMoves);
+            }*/
+
+            /*
+            JArray heroMovesJson = JArray.Parse(File.ReadAllText("files/hero_moves"));
+            
+            using (StreamReader r = new StreamReader("files/hero_moves.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Move> moves = JsonConvert.DeserializeObject<List<Move>>(json);
+            }*/
+
+           
             texts = new TextCollection();
             gControl  = new GameController(texts, Hero, Boss);
         }
@@ -52,7 +104,7 @@ namespace SimpleConsoleBattleGame
         public void Run()
         {
             // load all things needed for the game (agent stats, endings achieved etc.)
-            Load();
+            //Load();
 
 
             // show game UI

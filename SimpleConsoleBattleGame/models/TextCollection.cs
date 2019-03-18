@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -8,6 +10,7 @@ namespace SimpleConsoleBattleGame.models
     public class TextCollection
     {
         List<GameText> texts;
+        Utility util = new Utility();
         public TextCollection()
         {
             texts = new List<GameText>();
@@ -21,11 +24,13 @@ namespace SimpleConsoleBattleGame.models
         {
             try
             {
-                using (StreamReader sr = new StreamReader("./files/ingame_text.txt"))
+                this.texts = util.ReadListFromJson<GameText>("files/ingame_text.json");
+                /*
+                using (StreamReader sr = new StreamReader("./files/ingame_text.json"))
                 {
                     string line;
 
-
+                    
                     // perform JSON loading tasks here instead
                     while ((line = sr.ReadLine()) != null)
                     {
@@ -39,6 +44,27 @@ namespace SimpleConsoleBattleGame.models
 
                     }
                 }
+                */
+
+                /*
+                DefaultContractResolver contractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy()
+                };
+
+                using (StreamWriter sw = new StreamWriter("./files/ingame_text.json"))
+                {
+
+
+                    string texts = JsonConvert.SerializeObject(this.texts,
+                        new JsonSerializerSettings
+                        {
+                            ContractResolver = contractResolver,
+                            Formatting = Formatting.Indented
+                        });
+                    sw.Write(texts);
+                }*/
+
                 return true;
             }
             catch (Exception e)

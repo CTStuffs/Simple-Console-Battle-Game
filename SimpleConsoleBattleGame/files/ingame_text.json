@@ -1,0 +1,46 @@
+[
+  {
+    "id": "available_moves_header",
+    "text": "[SELECT YOUR MOVES]"
+  },
+  {
+    "id": "hero_ending_1",
+    "text": "The hero has slain the villain! Hooray!"
+  },
+  {
+    "id": "boss_ending_1",
+    "text": "The boss has defeated the hero! Oh no!"
+  },
+  {
+    "id": "draw_ending_1",
+    "text": "The hero and the boss have defeated each other at the same time! It's a draw!"
+  },
+  {
+    "id": "escape_ending_1",
+    "text": "The hero escaped successfully! Well done!"
+  },
+  {
+    "id": "intro_text",
+    "text": "Intro text goes here!"
+  },
+  {
+    "id": "idle_hero_text",
+    "text": "The hero is calculating his moves..."
+  },
+  {
+    "id": "input_prompt",
+    "text": "Input your command here."
+  },
+  {
+    "id": "bad_input_error",
+    "text": "Incorrect input! Please try again!"
+  },
+  {
+    "id": "input_waiting",
+    "text": "The battle continues..."
+  },
+  {
+    "id": "game_ended",
+    "text": "The game is over"
+  }
+]

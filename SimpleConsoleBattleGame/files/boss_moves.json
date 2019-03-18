@@ -1,0 +1,26 @@
+﻿[
+  {
+    "id": 1,
+    "name": "Strike",
+    "power": 15,
+    "inflictedStatus": 1,
+    "accuracy": 100,
+    "title": "Poison Attack",
+    "description": "fired poison from the mouth",
+    "mpReq": 0,
+    "lethal": true,
+    "polarity": false
+  },
+  {
+    "id": 2,
+    "name": "Attack",
+    "power": 25,
+    "inflictedStatus": 0,
+    "accuracy": 100,
+    "title": "Normal attack",
+    "description": "attacks",
+    "mpReq": 0,
+    "lethal": true,
+    "polarity": false
+  }
+]

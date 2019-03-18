@@ -1,0 +1,50 @@
+﻿[
+  {
+    "id": 1,
+    "name": "Attack",
+    "power": 25,
+    "inflictedStatus": 0,
+    "accuracy": 100,
+    "title": "Normal attack",
+    "description": "attacks",
+    "mpReq": 0,
+    "lethal": true,
+    "polarity": false
+  },
+  {
+    "id": 2,
+    "name": "Magic Attack",
+    "power": 50,
+    "inflictedStatus": 0,
+    "accuracy": 100,
+    "title": "Magic attack",
+    "description": "performs a magic attack!",
+    "mpReq": 50,
+    "lethal": true,
+    "polarity": false
+  },
+  {
+    "id": 3,
+    "name": "Defend",
+    "power": 10,
+    "inflictedStatus": 0,
+    "accuracy": 100,
+    "title": "Defending attack",
+    "description": "defends and restores health!",
+    "mpReq": 0,
+    "lethal": true,
+    "polarity": false
+  },
+  {
+    "id": 4,
+    "name": "Escape",
+    "power": 10,
+    "inflictedStatus": 0,
+    "accuracy": 60,
+    "title": "Escape move",
+    "description": "tried to escape!",
+    "mpReq": 0,
+    "lethal": false,
+    "polarity": false
+  }
+]
