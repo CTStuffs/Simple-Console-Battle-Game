@@ -9,7 +9,8 @@
     "description": "attacks",
     "mpReq": 0,
     "lethal": true,
-    "polarity": false
+    "polarity": false,
+    "moveType":  "ATTACK"
   },
   {
     "id": 2,
@@ -21,7 +22,8 @@
     "description": "performs a magic attack!",
     "mpReq": 50,
     "lethal": true,
-    "polarity": false
+    "polarity": false,
+    "moveType": "ATTACK"
   },
   {
     "id": 3,
@@ -33,7 +35,8 @@
     "description": "defends and restores health!",
     "mpReq": 0,
     "lethal": true,
-    "polarity": false
+    "polarity": false,
+    "moveType": "DEFEND"
   },
   {
     "id": 4,
@@ -45,6 +48,7 @@
     "description": "tried to escape!",
     "mpReq": 0,
     "lethal": false,
-    "polarity": false
+    "polarity": false,
+    "moveType": "OTHER"
   }
 ]

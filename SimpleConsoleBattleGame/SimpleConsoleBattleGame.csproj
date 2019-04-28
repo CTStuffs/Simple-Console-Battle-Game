@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,6 +7,12 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\Framework\v4.0.30319\WPF\PresentationCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

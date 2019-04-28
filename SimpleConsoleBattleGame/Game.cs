@@ -52,7 +52,7 @@ namespace SimpleConsoleBattleGame
             }
             catch (Exception e)
             {
-
+                Console.WriteLine(e.ToString());
             }
             // replace this with a JSON loading function
 

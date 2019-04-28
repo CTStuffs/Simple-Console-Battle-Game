@@ -1,7 +1,7 @@
 ﻿[
   {
     "id": 1,
-    "name": "Strike",
+    "name": "Poison Attack",
     "power": 15,
     "inflictedStatus": 1,
     "accuracy": 100,
@@ -9,7 +9,8 @@
     "description": "fired poison from the mouth",
     "mpReq": 0,
     "lethal": true,
-    "polarity": false
+    "polarity": false,
+    "moveType": "ATTACK"
   },
   {
     "id": 2,
@@ -21,6 +22,7 @@
     "description": "attacks",
     "mpReq": 0,
     "lethal": true,
-    "polarity": false
+    "polarity": false,
+    "movetype": "ATTACK"
   }
 ]

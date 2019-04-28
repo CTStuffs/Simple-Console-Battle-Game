@@ -42,5 +42,13 @@
   {
     "id": "game_ended",
     "text": "The game is over"
+  },
+  {
+    "id": "move_missed",
+    "text": "But the mvoe missed!"
+  },
+  {
+    "id": "dmg_poison",
+    "text": "took damage from the poison!"
   }
 ]

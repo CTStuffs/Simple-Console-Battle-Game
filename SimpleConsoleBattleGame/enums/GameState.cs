@@ -4,7 +4,8 @@ using System.Text;
 
 namespace SimpleConsoleBattleGame.enums
 {
-    public enum AGENT_STATUS {
-        NORMAL, POISON, DIZZY, ERROR
+    enum GameState
+    {
+        NEUTRAL, ENDING_NORMAL, ENDING_BATTLE, ENDING_ESCAPE, ENDING_UNUSUAL, ENDING_ERROR
     };
 }

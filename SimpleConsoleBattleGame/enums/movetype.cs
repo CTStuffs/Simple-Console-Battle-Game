@@ -4,7 +4,8 @@ using System.Text;
 
 namespace SimpleConsoleBattleGame.enums
 {
-    public enum AGENT_STATUS {
-        NORMAL, POISON, DIZZY, ERROR
+    public enum MoveType
+    {
+        ATTACK, DEFEND, HEAL, AILMENT, OTHER, ERROR
     };
 }
