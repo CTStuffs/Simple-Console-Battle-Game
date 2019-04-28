@@ -125,7 +125,7 @@ namespace SimpleConsoleBattleGame
                 //Console.WriteLine();
 
                 
-                Console.WriteLine(gControl.ShowAvailableMoves());
+                Console.WriteLine(gControl.GetAvailableMoveDisplay());
 
                 Console.WriteLine(texts.Find("input_prompt"));
 
@@ -145,7 +145,8 @@ namespace SimpleConsoleBattleGame
                 }
                 Console.WriteLine(gControl.GetGameResponse());
    
-                if (!gControl.CheckGameState())
+                
+                if (!gControl.CheckGameEnd())
                 {
                     gControl.ProcessEnd();
                     Console.WriteLine(gControl.GetGameResponse());

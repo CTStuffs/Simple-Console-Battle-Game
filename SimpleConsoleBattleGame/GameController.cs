@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SimpleConsoleBattleGame.enums;
+using SimpleConsoleBattleGame.models;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using SimpleConsoleBattleGame.models;
-using SimpleConsoleBattleGame.enums;
 
 namespace SimpleConsoleBattleGame
 {
@@ -49,7 +49,7 @@ namespace SimpleConsoleBattleGame
             return response;
         }
 
-        public string ShowAvailableMoves()
+        public string GetAvailableMoveDisplay()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -59,6 +59,23 @@ namespace SimpleConsoleBattleGame
                 sb.AppendLine(m.Id + ". " + m.Name);
             }
             return sb.ToString();
+        }
+
+        // checks if the game has ended
+        public bool CheckGameEnd()
+        {
+            if (overrideEnding)
+            {
+                return false;
+            }
+
+            // 
+            if (!boss.IsAlive() || !hero.IsAlive())
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public bool ProcessInput(string moveName)
@@ -181,8 +198,8 @@ namespace SimpleConsoleBattleGame
         {
             if (target.Status == AGENT_STATUS.POISON)
             {
-                gameResponseSb.Append(texts.Find("dmg_poison"));\
-                //ProcessAilmentDamage(target)
+                gameResponseSb.Append(texts.Find("dmg_poison"));
+                ProcessDamage(25, target);
                 
             }
 
@@ -205,6 +222,41 @@ namespace SimpleConsoleBattleGame
                 overrideEnding = false;
             }
         }*/
+
+        public void ProcessAilment(Move move, Agent target)
+        {
+            if (move.InflictedStatus != AGENT_STATUS.NORMAL && move.InflictedStatus != AGENT_STATUS.ERROR)
+            {
+                target.Status = move.InflictedStatus;
+                gameResponseSb.AppendLine("The " + target.Name + " is now inflicted with " + target.Status.ToString() + "!");
+
+
+
+            }
+        }
+
+
+        public void ProcessDamage(int damageNum, Agent target)
+        {
+            gameResponseSb.AppendLine(" " + damageNum + " damage to the " + target.Name + "!");
+            target.ModHP(-(damageNum - target.Shield));
+            target.Shield = 0;
+            return;
+        }
+
+        public void ProcessDefend(Move move, Agent target)
+        {
+            target.Shield += move.Power;
+        }
+
+        public void ProcessHeal(Move move, Agent target)
+        {
+            if (move.Power > 0)
+            {
+                target.ModHP(move.Power);
+                gameResponseSb.AppendLine("The " + target.Name + " was healed for " + move.Power.ToString() + "!");
+            }
+        }
 
         public void ProcessMoveDamage(Move move, Agent initiator, Agent target)
         {
@@ -235,63 +287,15 @@ namespace SimpleConsoleBattleGame
             }
             else
             {
-                gameResponseSb.AppendLine(" " + damage + " damage to the " + target.Name + "!");
-                target.ModHP(-(damage - target.Shield));
-                target.Shield = 0;
+
+                ProcessDamage(damage, target);
                 return;
-
-            }
-        }
-
-
-
-        public void ProcessDefend(Move move, Agent target)
-        {
-            target.Shield += move.Power;
-        }
-
-        public void ProcessAilment(Move move, Agent target)
-        {
-            if (move.InflictedStatus != AGENT_STATUS.NORMAL && move.InflictedStatus != AGENT_STATUS.ERROR)
-            {
-                target.Status = move.InflictedStatus;
-                gameResponseSb.AppendLine("The " + target.Name + " is now inflicted with " + target.Status.ToString() + "!");
-
-                
-               
-            }
-
-        }
-        public void ProcessHeal(Move move, Agent target)
-        {
-            if (move.Power > 0)
-            {
-                target.ModHP(move.Power);
-                gameResponseSb.AppendLine("The " + target.Name + " was healed for " + move.Power.ToString() + "!");
             }
         }
 
 
         // check the game state and whether it is allowed to continue
         // perhaps the ending text should be added to the text game response here?
-        public bool CheckGameState()
-        {
-
-
-            if (overrideEnding)
-            {
-                return false;
-            }
-
-            // 
-            if (!boss.IsAlive() || !hero.IsAlive())
-            {
-                return false;
-            }
-
-            return true;
-        }
-
 
 
         // process the end of the game
